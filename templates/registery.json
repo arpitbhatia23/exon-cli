@@ -1,0 +1,62 @@
+{
+  "plugins": {
+    "swagger": {
+      "name": "swagger",
+      "type": "feature",
+      "condition": {
+        "field": "options.swagger",
+        "truthy": true
+      },
+      "templatePath": "plugins/templates/swagger",
+      "files": ["src/swagger.config.js", "src/swagger.config.ts"],
+      "dependencies": {
+        "swagger-ui-express": "latest",
+        "swagger-jsdoc": "latest"
+      },
+      "devDependencies": {
+        "@types/swagger-ui-express": "latest",
+        "@types/swagger-jsdoc": "latest"
+      },
+      "inject": [
+        {
+          "type": "import",
+          "file": "src/app.ts",
+          "moduleSpecifier": "./swagger.config.js",
+          "namedImports": ["swaggerSpec"]
+        },
+        {
+          "type": "import",
+          "file": "src/app.ts",
+          "moduleSpecifier": "swagger-ui-express",
+          "defaultImport": "swaggerUi"
+        },
+        {
+          "type": "statement",
+          "file": "src/app.ts",
+          "after": "const app = express();",
+          "code": "app.use(\"/docs\", swaggerUi.serve, swaggerUi.setup(swaggerSpec));"
+        }
+      ],
+      "uninstall": {
+        "removeImports": [
+          {
+            "file": "src/app.ts",
+            "moduleSpecifier": "./swagger.config.js",
+            "namedImports": ["swaggerSpec"]
+          },
+          {
+            "file": "src/app.ts",
+            "moduleSpecifier": "swagger-ui-express",
+            "defaultImport": "swaggerUi"
+          }
+        ],
+        "removeStatements": [
+          {
+            "file": "src/app.ts",
+            "code": "app.use(\"/docs\", swaggerUi.serve, swaggerUi.setup(swaggerSpec));"
+          }
+        ]
+      }
+    }
+  }
+}
