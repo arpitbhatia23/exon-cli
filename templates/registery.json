@@ -18,10 +18,7 @@
         "truthy": true
       },
       "templatePath": "plugins/templates/swagger",
-      "files": [
-        "packages/plugins/swagger/index.ts",
-        "packages/plugins/swagger/injectSwagger.ts"
-      ],
+      "files": ["swagger.config.ts", "swagger.config.js"],
       "dependencies": {
         "swagger-ui-express": "latest",
         "swagger-jsdoc": "latest"
@@ -79,10 +76,7 @@
         "equals": "prisma"
       },
       "templatePath": "plugins/templates/prisma",
-      "files": [
-        "packages/plugins/prisma/index.ts",
-        "packages/plugins/prisma/injectPrisma.ts"
-      ],
+      "files": ["src/db/index.ts", "src/db/index.js", "src/db/schema.prisma"],
       "dependencies": {
         "@prisma/client": "latest"
       },
@@ -127,10 +121,8 @@
         "equals": "mongoose"
       },
       "templatePath": "plugins/templates/mongoose",
-      "files": [
-        "packages/plugins/mongoose/index.ts",
-        "packages/plugins/mongoose/injectMongoose.ts"
-      ],
+      "files": ["src/db/index.js", "src/db/index.ts"],
+
       "dependencies": {
         "mongoose": "latest"
       },
@@ -175,8 +167,10 @@
       },
       "templatePath": "plugins/templates/logger",
       "files": [
-        "packages/plugins/logger/index.ts",
-        "packages/plugins/logger/injectLogger.ts"
+        "src/middleware/morgan.middleware.ts",
+        "src/middleware/morgan.middleware.js",
+        "src/utils/logger.ts",
+        "src/utils/logger.js"
       ],
       "dependencies": {
         "winston": "latest"
@@ -241,10 +235,8 @@
         "truthy": true
       },
       "templatePath": "plugins/templates/socket",
-      "files": [
-        "packages/plugins/socket/index.ts",
-        "packages/plugins/socket/injectSocket.ts"
-      ],
+      "files": ["src/socket/index.js", "src/socket/index.ts"],
+
       "dependencies": {
         "socket.io": "latest"
       },
@@ -290,8 +282,10 @@
       },
       "templatePath": "plugins/templates/drizzle",
       "files": [
-        "packages/plugins/drizzle/index.ts",
-        "packages/plugins/drizzle/injectPrisma.ts"
+        "src/db/index.js",
+        "srx/db/index.ts",
+        "drizzle.config.ts",
+        "drizzle.config.js"
       ],
       "dependencies": {
         "drizzle-orm": "latest",
