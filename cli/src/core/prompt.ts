@@ -85,21 +85,21 @@ export const copyTemplate = async (
   s: any,
 ): Promise<void> => {
   const registerTemplate = (await registry()) as Registry;
-  console.log(registerTemplate);
   const templateKey =
     language === "TypeScript"
       ? "node-express-template-ts"
       : "node-express-template-js";
 
   const template = registerTemplate.templates?.[templateKey];
+  console.log(template);
   if (!template) {
-    throw new Error("Template not found");
+    cancel("Template not found");
   }
   console.log(template);
   try {
     s.start("Downloading template from GitHub...");
 
-    await downloadTemplate(`github:${template.repo}/${template.path}`, {
+    await downloadTemplate(`github:${template?.repo}/${template?.path}`, {
       dir: targetDir,
       force: true,
     });

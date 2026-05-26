@@ -1,7 +1,7 @@
 {
   "templates": {
     "node-express-template-ts": {
-      "repo": "arpitbhatia23/exon-templates",
+      "repo": "arpitbhatia23/exon-exon-cli",
       "path": "node-express-template-ts"
     },
     "node-express-template-js": {
