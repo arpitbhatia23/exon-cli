@@ -1,4 +1,14 @@
 {
+  "templates": {
+    "node-express-template-ts": {
+      "repo": "arpitbhatia23/exon-templates",
+      "path": "node-express-template-ts"
+    },
+    "node-express-template-js": {
+      "repo": "arpitbhatia23/exon-templates",
+      "path": "node-express-template-js"
+    }
+  },
   "plugins": {
     "swagger": {
       "name": "swagger",

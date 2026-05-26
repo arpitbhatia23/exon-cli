@@ -78,6 +78,7 @@ program
       }
       let language: string = await selectLanguage(options);
       let database: string = await selectDatabase(options);
+
       await copyTemplate(language, name, targetDir, s);
 
       const context: pluginContext = {

@@ -5,7 +5,9 @@ import fs from "fs-extra";
 import { fileURLToPath } from "url";
 import { spawn } from "child_process";
 import color from "picocolors";
-
+import { downloadTemplate } from "giget";
+import { registry } from "../plugins/registry.js";
+import type { Registry } from "../plugins/index.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -66,6 +68,8 @@ export const selectDatabase = async (options: dbTypes): Promise<string> => {
     options: DB_OPTIONS,
   });
 
+  console.log(typeof selected);
+  console.log(isCancel(selected));
   if (isCancel(selected)) {
     cancel("Project creation cancelled.");
     process.exit(0);
@@ -80,31 +84,35 @@ export const copyTemplate = async (
   targetDir: string,
   s: any,
 ): Promise<void> => {
-  const templateName: string =
+  const registerTemplate = (await registry()) as Registry;
+  console.log(registerTemplate);
+  const templateKey =
     language === "TypeScript"
       ? "node-express-template-ts"
       : "node-express-template-js";
 
-  const templateDir = path.resolve(__dirname, "../../templates", templateName);
-  if (!fs.existsSync(templateDir)) {
-    cancel("Template Not Found!");
+  const template = registerTemplate.templates?.[templateKey];
+  if (!template) {
+    throw new Error("Template not found");
   }
+  console.log(template);
   try {
-    s.start("Creating project structure...");
-    fs.copySync(templateDir, targetDir, {
-      overwrite: true,
-      filter: (src) => {
-        const basename = path.basename(src);
-        return basename !== "node_modules" && basename !== "dist";
-      },
+    s.start("Downloading template from GitHub...");
+
+    await downloadTemplate(`github:${template.repo}/${template.path}`, {
+      dir: targetDir,
+      force: true,
     });
+
     s.stop("Project structure created");
   } catch (error) {
+    console.log(error);
     s.stop("Failed to create project structure", 1);
+    cancel("Template download failed!");
   }
 
   if (!fs.existsSync(targetDir)) {
-    cancel(`something went wrong while creating ${targetDir}`);
+    cancel(`Something went wrong while creating ${targetDir}`);
   }
 };
 
