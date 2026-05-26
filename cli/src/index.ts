@@ -12,12 +12,13 @@ import {
   selectDatabase,
   selectLanguage,
 } from "./core/prompt.js";
-import type { pluginContext } from "./plugins/types/index.js";
-import { plugins } from "./plugins/index.js";
-import { runPlugins } from "./plugins/runPlugin.js";
+
 import { createProjectConfig } from "./core/project/createProjectConfig.js";
 import { addcommand } from "./commands/addCommand.js";
 import { removeCommand } from "./commands/removeCommand.js";
+import type { Plugin, pluginContext } from "./plugins/remote/types/index.js";
+import { loadPlugins, plugins } from "./plugins/index.js";
+import { runPlugins } from "./plugins/runPlugin.js";
 const program = new Command();
 program.addCommand(addcommand);
 program.addCommand(removeCommand);
@@ -87,15 +88,19 @@ program
         options,
       };
 
-      // await addDocker(options, language, targetDir, name, database);
-      await runPlugins(plugins, context);
+      const appliedPlugins: string[] = [];
+
+      for (const plugin of plugins) {
+        if (plugin.shouldRun(context)) {
+          await runPlugins(plugin, context, { force: true });
+          appliedPlugins.push(plugin.name);
+        }
+      }
       await createProjectConfig(targetDir, {
         language,
         database,
 
-        plugins: plugins
-          .filter((plugin) => plugin.shouldRun(context))
-          .map((plugin) => plugin.name),
+        plugins: appliedPlugins,
       });
 
       const pkgPath = path.join(targetDir, "package.json");

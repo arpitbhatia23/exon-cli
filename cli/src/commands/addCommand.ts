@@ -1,9 +1,9 @@
 import { Command } from "commander";
 import { loadProjectConfig } from "../core/project/loadProjectConfig.js";
-import { plugins } from "../plugins/index.js";
-import { runPlugins } from "../plugins/runPlugin.js";
 import { cancel, intro, outro, spinner } from "@clack/prompts";
 import { saveProjectConfig } from "../core/project/saveProjectConfig.js";
+import { plugins } from "../plugins/index.js";
+import { runPlugins } from "../plugins/runPlugin.js";
 
 const addcommand = new Command("add");
 

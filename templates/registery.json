@@ -8,7 +8,10 @@
         "truthy": true
       },
       "templatePath": "plugins/templates/swagger",
-      "files": ["src/swagger.config.js", "src/swagger.config.ts"],
+      "files": [
+        "packages/plugins/swagger/index.ts",
+        "packages/plugins/swagger/injectSwagger.ts"
+      ],
       "dependencies": {
         "swagger-ui-express": "latest",
         "swagger-jsdoc": "latest"
@@ -54,6 +57,264 @@
           {
             "file": "src/app.ts",
             "code": "app.use(\"/docs\", swaggerUi.serve, swaggerUi.setup(swaggerSpec));"
+          }
+        ]
+      }
+    },
+    "prisma": {
+      "name": "prisma",
+      "type": "database",
+      "condition": {
+        "field": "options.database",
+        "equals": "prisma"
+      },
+      "templatePath": "plugins/templates/prisma",
+      "files": [
+        "packages/plugins/prisma/index.ts",
+        "packages/plugins/prisma/injectPrisma.ts"
+      ],
+      "dependencies": {
+        "@prisma/client": "latest"
+      },
+      "devDependencies": {
+        "prisma": "latest"
+      },
+      "inject": [
+        {
+          "type": "import",
+          "file": "src/app.ts",
+          "moduleSpecifier": "./prisma.config.js",
+          "namedImports": ["prisma"]
+        },
+        {
+          "type": "statement",
+          "file": "src/app.ts",
+          "after": "const app = express();",
+          "code": "app.use((req, res, next) => { req.prisma = prisma; next(); });"
+        }
+      ],
+      "uninstall": {
+        "removeImports": [
+          {
+            "file": "src/app.ts",
+            "moduleSpecifier": "./prisma.config.js",
+            "namedImports": ["prisma"]
+          }
+        ],
+        "removeStatements": [
+          {
+            "file": "src/app.ts",
+            "code": "app.use((req, res, next) => { req.prisma = prisma; next(); });"
+          }
+        ]
+      }
+    },
+    "mongoose": {
+      "name": "mongoose",
+      "type": "database",
+      "condition": {
+        "field": "options.database",
+        "equals": "mongoose"
+      },
+      "templatePath": "plugins/templates/mongoose",
+      "files": [
+        "packages/plugins/mongoose/index.ts",
+        "packages/plugins/mongoose/injectMongoose.ts"
+      ],
+      "dependencies": {
+        "mongoose": "latest"
+      },
+      "devDependencies": {
+        "@types/mongoose": "latest"
+      },
+      "inject": [
+        {
+          "type": "import",
+          "file": "src/db/index.ts",
+          "moduleSpecifier": "./mongoose.config.js",
+          "namedImports": ["connectDB"]
+        },
+        {
+          "type": "statement",
+          "file": "src/index.ts",
+          "after": "import app from './app';",
+          "code": "import { connectDB } from './db';"
+        }
+      ],
+      "uninstall": {
+        "removeImports": [
+          {
+            "file": "src/db/index.ts",
+            "moduleSpecifier": "./mongoose.config.js",
+            "namedImports": ["connectDB"]
+          },
+          {
+            "file": "src/index.ts",
+            "moduleSpecifier": "./db",
+            "namedImports": ["connectDB"]
+          }
+        ]
+      }
+    },
+    "logger": {
+      "name": "logger",
+      "type": "utility",
+      "condition": {
+        "field": "options.logger",
+        "truthy": true
+      },
+      "templatePath": "plugins/templates/logger",
+      "files": [
+        "packages/plugins/logger/index.ts",
+        "packages/plugins/logger/injectLogger.ts"
+      ],
+      "dependencies": {
+        "winston": "latest"
+      },
+      "devDependencies": {
+        "@types/winston": "latest"
+      },
+      "inject": [
+        {
+          "type": "import",
+          "file": "src/app.ts",
+          "moduleSpecifier": "./config/logger.config",
+          "namedImports": ["logger"]
+        },
+        {
+          "type": "import",
+          "file": "src/app.ts",
+          "moduleSpecifier": "morgan",
+          "defaultImport": "morgan"
+        }
+      ],
+      "uninstall": {
+        "removeImports": [
+          {
+            "file": "src/app.ts",
+            "moduleSpecifier": "./config/logger.config",
+            "namedImports": ["logger"]
+          },
+          {
+            "file": "src/app.ts",
+            "moduleSpecifier": "morgan",
+            "defaultImport": "morgan"
+          }
+        ]
+      }
+    },
+    "docker": {
+      "name": "docker",
+      "type": "deployment",
+      "condition": {
+        "field": "options.docker",
+        "truthy": true
+      },
+      "templatePath": "plugins/templates/docker",
+      "files": [
+        "packages/plugins/docker/index.ts",
+        "packages/plugins/docker/dockerHelper.ts"
+      ],
+      "dependencies": {},
+      "devDependencies": {},
+      "inject": [],
+      "uninstall": {
+        "removeImports": [],
+        "removeStatements": []
+      }
+    },
+    "socket": {
+      "name": "socket",
+      "type": "realtime",
+      "condition": {
+        "field": "options.socket",
+        "truthy": true
+      },
+      "templatePath": "plugins/templates/socket",
+      "files": [
+        "packages/plugins/socket/index.ts",
+        "packages/plugins/socket/injectSocket.ts"
+      ],
+      "dependencies": {
+        "socket.io": "latest"
+      },
+      "devDependencies": {
+        "@types/socket.io": "latest"
+      },
+      "inject": [
+        {
+          "type": "import",
+          "file": "src/index.ts",
+          "moduleSpecifier": "socket.io",
+          "defaultImport": "socketIo"
+        },
+        {
+          "type": "statement",
+          "file": "src/index.ts",
+          "after": "const io = socketIo(server);",
+          "code": "io.on('connection', (socket) => { console.log('New client connected'); });"
+        }
+      ],
+      "uninstall": {
+        "removeImports": [
+          {
+            "file": "src/index.ts",
+            "moduleSpecifier": "socket.io",
+            "defaultImport": "socketIo"
+          }
+        ],
+        "removeStatements": [
+          {
+            "file": "src/index.ts",
+            "code": "io.on('connection', (socket) => { console.log('New client connected'); });"
+          }
+        ]
+      }
+    },
+    "drizzle": {
+      "name": "drizzle",
+      "type": "database",
+      "condition": {
+        "field": "options.database",
+        "equals": "drizzle"
+      },
+      "templatePath": "plugins/templates/drizzle",
+      "files": [
+        "packages/plugins/drizzle/index.ts",
+        "packages/plugins/drizzle/injectPrisma.ts"
+      ],
+      "dependencies": {
+        "drizzle-orm": "latest",
+        "drizzle-kit": "latest"
+      },
+      "devDependencies": {
+        "@types/drizzle-orm": "latest"
+      },
+      "inject": [
+        {
+          "type": "import",
+          "file": "src/db/index.ts",
+          "moduleSpecifier": "drizzle-orm",
+          "namedImports": ["drizzle"]
+        },
+        {
+          "type": "import",
+          "file": "src/db/index.ts",
+          "moduleSpecifier": "../schema.js",
+          "namedImports": ["schema"]
+        }
+      ],
+      "uninstall": {
+        "removeImports": [
+          {
+            "file": "src/db/index.ts",
+            "moduleSpecifier": "drizzle-orm",
+            "namedImports": ["drizzle"]
+          },
+          {
+            "file": "src/db/index.ts",
+            "moduleSpecifier": "../schema.js",
+            "namedImports": ["schema"]
           }
         ]
       }
