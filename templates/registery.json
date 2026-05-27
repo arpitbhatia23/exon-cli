@@ -18,7 +18,7 @@
         "truthy": true
       },
       "templatePath": "plugins/templates/swagger",
-      "files": ["swagger.config.ts", "swagger.config.js"],
+      "files": ["swagger.config.ts", "swagger.config.{ext}"],
       "dependencies": {
         "swagger-ui-express": "latest",
         "swagger-jsdoc": "latest"
@@ -30,8 +30,8 @@
       "inject": [
         {
           "type": "import",
-          "file": "src/app.ts",
-          "moduleSpecifier": "./swagger.config.js",
+          "file": "src/app.{ext}",
+          "moduleSpecifier": "./swagger.config.{ext}",
           "namedImports": ["swaggerSpec"]
         },
         {
@@ -51,7 +51,7 @@
         "removeImports": [
           {
             "file": "src/app.ts",
-            "moduleSpecifier": "./swagger.config.js",
+            "moduleSpecifier": "./swagger.config.{ext}",
             "namedImports": ["swaggerSpec"]
           },
           {
@@ -62,7 +62,7 @@
         ],
         "removeStatements": [
           {
-            "file": "src/app.ts",
+            "file": "src/app.{ext}",
             "code": "app.use(\"/docs\", swaggerUi.serve, swaggerUi.setup(swaggerSpec));"
           }
         ]
@@ -116,12 +116,15 @@
     "mongoose": {
       "name": "mongoose",
       "type": "database",
-      "condition": {
-        "field": "options.database",
-        "equals": "mongoose"
-      },
+      "condition": [
+        {
+          "field": "options.database",
+          "equals": "Mongoose"
+        },
+        { "field": "database", "equals": "Mongoose" }
+      ],
       "templatePath": "plugins/templates/mongoose",
-      "files": ["src/db/index.js", "src/db/index.ts"],
+      "files": ["src/db/index.js", "src/db/index.{ext}"],
 
       "dependencies": {
         "mongoose": "latest"
@@ -133,22 +136,34 @@
         {
           "type": "import",
           "file": "src/db/index.ts",
-          "moduleSpecifier": "./mongoose.config.js",
-          "namedImports": ["connectDB"]
+          "moduleSpecifier": "mongoose",
+          "defaultImport": "mongoose"
+        },
+        {
+          "type": "statement",
+          "file": "src/db/index.ts",
+          "after": "import mongoose from 'mongoose';",
+          "code": "export async function connectDB() {\n  await mongoose.connect(process.env.MONGO_URI!);\n  console.log(\"🍃 MongoDB connected\");\n}"
+        },
+        {
+          "type": "import",
+          "file": "src/app.ts",
+          "moduleSpecifier": "./db/index.ts",
+          "namedImport": ["connectDB"]
         },
         {
           "type": "statement",
           "file": "src/index.ts",
           "after": "import app from './app';",
-          "code": "import { connectDB } from './db';"
+          "code": "await connectDB()"
         }
       ],
       "uninstall": {
         "removeImports": [
           {
             "file": "src/db/index.ts",
-            "moduleSpecifier": "./mongoose.config.js",
-            "namedImports": ["connectDB"]
+            "moduleSpecifier": "mongoose",
+            "defaultImport": "mongoose"
           },
           {
             "file": "src/index.ts",
@@ -173,7 +188,9 @@
         "src/utils/logger.js"
       ],
       "dependencies": {
-        "winston": "latest"
+        "winston": "latest",
+        "morgan": "latest",
+        "winston-daily-rotate-file": "latest"
       },
       "devDependencies": {
         "@types/winston": "latest"
