@@ -142,26 +142,14 @@
       "inject": [
         {
           "type": "import",
-          "file": "src/db/index.ts",
-          "moduleSpecifier": "mongoose",
-          "defaultImport": "mongoose"
-        },
-        {
-          "type": "statement",
-          "file": "src/db/index.ts",
-          "after": "import mongoose from 'mongoose';",
-          "code": "export async function connectDB() {\n  await mongoose.connect(process.env.MONGO_URI!);\n  console.log(\"🍃 MongoDB connected\");\n}"
-        },
-        {
-          "type": "import",
-          "file": "src/app.ts",
-          "moduleSpecifier": "./db/index.ts",
+          "file": "src/app.{ext}",
+          "moduleSpecifier": "./db/index.{ext}",
           "namedImport": ["connectDB"]
         },
         {
           "type": "statement",
           "file": "src/index.ts",
-          "after": "import app from './app';",
+          "before": "app.listen';",
           "code": "await connectDB()"
         }
       ],
