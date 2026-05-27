@@ -144,11 +144,11 @@
           "type": "import",
           "file": "src/app.{ext}",
           "moduleSpecifier": "src/db/index.{ext}",
-          "namedImport": ["connectDB"]
+          "namedImports": ["connectDB"]
         },
         {
           "type": "statement",
-          "file": "src/index.ts",
+          "file": "src/index.{ext}",
           "after": "const port: number = process.env.PORT ? Number(process.env.PORT) : 3802;",
           "code": "await connectDB();"
         }
@@ -162,7 +162,7 @@
           },
           {
             "file": "src/index.{ext}",
-            "moduleSpecifier": "./db",
+            "moduleSpecifier": "./db/index.{ext}",
             "namedImports": ["connectDB"]
           }
         ],
