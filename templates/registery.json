@@ -143,7 +143,7 @@
         {
           "type": "import",
           "file": "src/app.{ext}",
-          "moduleSpecifier": "./db/index.{ext}",
+          "moduleSpecifier": "src/db/index.{ext}",
           "namedImport": ["connectDB"]
         },
         {
@@ -156,14 +156,22 @@
       "uninstall": {
         "removeImports": [
           {
-            "file": "src/db/index.ts",
+            "file": "src/db/index.{ext}",
             "moduleSpecifier": "mongoose",
             "defaultImport": "mongoose"
           },
           {
-            "file": "src/index.ts",
+            "file": "src/index.{ext}",
             "moduleSpecifier": "./db",
             "namedImports": ["connectDB"]
+          }
+        ],
+        "removeStatements": [
+          {
+            "type": "statement",
+            "file": "src/index.ts",
+            "after": "const port: number = process.env.PORT ? Number(process.env.PORT) : 3802;",
+            "code": "await connectDB();"
           }
         ]
       }
