@@ -17,8 +17,9 @@
         "field": "options.swagger",
         "truthy": true
       },
+
       "templatePath": "plugins/templates/swagger",
-      "files": ["swagger.config.ts", "swagger.config.{ext}"],
+      "files": ["swagger.config.{ext}", "swagger.config.{ext}"],
       "dependencies": {
         "swagger-ui-express": "latest",
         "swagger-jsdoc": "latest"
@@ -120,11 +121,17 @@
         {
           "field": "options.database",
           "equals": "Mongoose"
-        },
-        { "field": "database", "equals": "Mongoose" }
+        }
+      ],
+      "asset": [
+        {
+          "source": "./index.js",
+          "destination": "src/db/index.js",
+          "overwrite": true
+        }
       ],
       "templatePath": "plugins/templates/mongoose",
-      "files": ["src/db/index.js", "src/db/index.{ext}"],
+      "files": ["src/db/index.{ext}", "src/db/index.{ext}"],
 
       "dependencies": {
         "mongoose": "latest"
