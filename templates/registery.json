@@ -125,8 +125,8 @@
       ],
       "asset": [
         {
-          "source": "./index.js",
-          "destination": "src/db/index.js",
+          "source": "./index.{ext}",
+          "destination": "src/db/index.{ext}",
           "overwrite": true
         }
       ],
