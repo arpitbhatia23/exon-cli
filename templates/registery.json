@@ -149,8 +149,8 @@
         {
           "type": "statement",
           "file": "src/index.ts",
-          "before": "app.listen';",
-          "code": "await connectDB()"
+          "after": "const port: number = process.env.PORT ? Number(process.env.PORT) : 3802;",
+          "code": "await connectDB();"
         }
       ],
       "uninstall": {
