@@ -427,19 +427,20 @@
         },
         {
           "source": "./drizzle.config.{ext}",
-          "destination": "./drizzle.config.{ext}",
+          "destination": "src/drizzle.config.{ext}",
           "overwrite": true
         }
       ],
       "templatePath": "plugins/templates/drizzle",
       "files": [
         "src/db/index.js",
-        "srx/db/index.ts",
-        "drizzle.config.ts",
-        "drizzle.config.js"
+        "src/db/index.ts",
+        "src/drizzle.config.ts",
+        "src/drizzle.config.js"
       ],
       "dependencies": {
-        "drizzle-orm": "latest"
+        "drizzle-orm": "latest",
+        "pg": "latest"
       },
       "devDependencies": {
         "drizzle-kit": "latest"
