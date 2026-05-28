@@ -337,6 +337,13 @@
           "namedImports": "initSocket"
         },
         {
+          "type": "replaceImport",
+          "file": "src/index.{ext}",
+          "moduleSpecifier": "./app.{ext}",
+          "from": "app",
+          "to": "server"
+        },
+        {
           "type": "statement",
           "file": "src/app.{ext}",
           "after": "app.use(cookieParser());",
@@ -346,13 +353,13 @@
           "type": "replaceCall",
           "file": "src/index.{ext}",
           "target": "app.listen",
-          "replaceWith": "sever.listen"
+          "replaceWith": "server.listen"
         },
         {
           "type": "replaceExport",
           "file": "src/app.{ext}",
           "from": "app",
-          "to": "sever"
+          "to": "server"
         }
       ],
       "uninstall": {
@@ -384,6 +391,14 @@
             "file": "src/app.{ext}",
             "target": "server.listen",
             "replaceWith": "app.listen"
+          }
+        ],
+        "replaceImport": [
+          {
+            "type": "replaceExport",
+            "file": "src/app.{ext}",
+            "from": "app",
+            "to": "server"
           }
         ],
         "replaceExports": [
