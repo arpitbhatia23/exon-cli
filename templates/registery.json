@@ -257,6 +257,12 @@
           "file": "src/utils/asyncHandler.{ext}",
           "after": "const message = error.message || \"Something went wrong\";",
           "code": "logger.error(error);"
+        },
+        {
+          "type": "statement",
+          "file": "src/app.{ext}",
+          "after": "app.use(cookieParser());",
+          "code": "app.use(morganLogger);"
         }
       ],
       "uninstall": {
@@ -280,6 +286,12 @@
             "file": "src/utils/asyncHandler.{ext}",
             "after": "const message = error.message || \"Something went wrong\";",
             "code": "logger.error(error);"
+          },
+          {
+            "type": "statement",
+            "file": "src/app.{ext}",
+            "after": "app.use(cookieParser());",
+            "code": "app.use(morganLogger);"
           }
         ]
       }
