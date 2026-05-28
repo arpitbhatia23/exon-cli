@@ -439,11 +439,10 @@
         "drizzle.config.js"
       ],
       "dependencies": {
-        "drizzle-orm": "latest",
-        "drizzle-kit": "latest"
+        "drizzle-orm": "latest"
       },
       "devDependencies": {
-        "@types/drizzle-orm": "latest"
+        "drizzle-kit": "latest"
       },
       "inject": [
         {
