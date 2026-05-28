@@ -333,7 +333,7 @@
         {
           "type": "import",
           "file": "src/app.{ext}",
-          "moduleSpecifier": "./scoket/index.{ext}",
+          "moduleSpecifier": "./socket/index.{ext}",
           "namedImports": "initSocket"
         },
         {
@@ -346,7 +346,7 @@
           "type": "replaceCall",
           "file": "src/index.{ext}",
           "target": "app.listen",
-          "code": "sever.listen"
+          "replaceWith": "sever.listen"
         },
         {
           "type": "replaceExport",
