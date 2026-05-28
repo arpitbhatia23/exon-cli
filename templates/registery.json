@@ -94,7 +94,7 @@
         },
         {
           "source": "./schema.prisma",
-          "destination": "src/db/schema.prisma}",
+          "destination": "src/db/schema.prisma",
           "overwrite": true
         }
       ],
