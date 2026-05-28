@@ -443,7 +443,8 @@
         "pg": "latest"
       },
       "devDependencies": {
-        "drizzle-kit": "latest"
+        "drizzle-kit": "latest",
+        "@types/pg": "latest"
       },
       "inject": [
         {
