@@ -142,7 +142,7 @@
       "inject": [
         {
           "type": "import",
-          "file": "src/app.{ext}",
+          "file": "src/index.ts",
           "moduleSpecifier": "src/db/index.{ext}",
           "namedImports": ["connectDB"]
         },
@@ -183,6 +183,18 @@
         "field": "options.logger",
         "truthy": true
       },
+      "asset": [
+        {
+          "source": "src/middleware/morgan.middleware.{ext}",
+          "destination": "src/middleware/morgan.middleware.{ext}",
+          "overwrite": true
+        },
+        {
+          "source": "src/utils/logger.{ext}",
+          "destination": "src/utils/logger.{ext}",
+          "overwrite": true
+        }
+      ],
       "templatePath": "plugins/templates/logger",
       "files": [
         "src/middleware/morgan.middleware.ts",
@@ -201,28 +213,44 @@
       "inject": [
         {
           "type": "import",
-          "file": "src/app.ts",
-          "moduleSpecifier": "./config/logger.config",
-          "namedImports": ["logger"]
+          "file": "src/app.{ext}",
+          "moduleSpecifier": "src/middleware/morgan.middleware.{ext}",
+          "defaultImport": "morganLogger"
         },
         {
           "type": "import",
-          "file": "src/app.ts",
-          "moduleSpecifier": "morgan",
-          "defaultImport": "morgan"
+          "file": "src/utils/asyncHandler.{ext}",
+          "moduleSpecifier": "./logger.{ext}",
+          "defaultImport": "logger"
+        },
+        {
+          "type": "statement",
+          "file": "src/utils/asyncHandler.{ext}",
+          "after": "message",
+          "code": "logger.error(error);"
         }
       ],
       "uninstall": {
         "removeImports": [
           {
-            "file": "src/app.ts",
-            "moduleSpecifier": "./config/logger.config",
-            "namedImports": ["logger"]
+            "type": "import",
+            "file": "src/app.{ext}",
+            "moduleSpecifier": "src/middleware/morgan.middleware.{ext}",
+            "defaultImport": "morganLogger"
           },
           {
-            "file": "src/app.ts",
-            "moduleSpecifier": "morgan",
-            "defaultImport": "morgan"
+            "type": "import",
+            "file": "src/utils/asyncHandler.{ext}",
+            "moduleSpecifier": "./logger.{ext}",
+            "defaultImport": "logger"
+          }
+        ],
+        "removeStatements": [
+          {
+            "type": "statement",
+            "file": "src/utils/asyncHandler.{ext}",
+            "after": "message",
+            "code": "logger.error(error);"
           }
         ]
       }
