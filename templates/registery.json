@@ -226,7 +226,7 @@
         {
           "type": "statement",
           "file": "src/utils/asyncHandler.{ext}",
-          "after": "message",
+          "after": "const message = error.message || \"Something went wrong\";",
           "code": "logger.error(error);"
         }
       ],
@@ -249,7 +249,7 @@
           {
             "type": "statement",
             "file": "src/utils/asyncHandler.{ext}",
-            "after": "message",
+            "after": "const message = error.message || \"Something went wrong\";",
             "code": "logger.error(error);"
           }
         ]
