@@ -328,6 +328,18 @@
         "field": "options.database",
         "equals": "drizzle"
       },
+      "asset": [
+        {
+          "source": "./index.{ext}",
+          "destination": "src/db/index.{ext}",
+          "overwrite": true
+        },
+        {
+          "source": "./drizzle.config.{ext}",
+          "destination": "./drizzle.config.{ext}",
+          "overwrite": true
+        }
+      ],
       "templatePath": "plugins/templates/drizzle",
       "files": [
         "src/db/index.js",
@@ -345,28 +357,32 @@
       "inject": [
         {
           "type": "import",
-          "file": "src/db/index.ts",
-          "moduleSpecifier": "drizzle-orm",
-          "namedImports": ["drizzle"]
+          "file": "src/index.ts",
+          "moduleSpecifier": "./db/index.{ext}",
+          "namedImports": ["connectDB"]
         },
         {
-          "type": "import",
-          "file": "src/db/index.ts",
-          "moduleSpecifier": "../schema.js",
-          "namedImports": ["schema"]
+          "type": "statement",
+          "file": "src/index.{ext}",
+          "after": "const port: number = process.env.PORT ? Number(process.env.PORT) : 3802;",
+          "code": "await connectDB();"
         }
       ],
       "uninstall": {
         "removeImports": [
           {
-            "file": "src/db/index.ts",
-            "moduleSpecifier": "drizzle-orm",
-            "namedImports": ["drizzle"]
-          },
+            "type": "import",
+            "file": "src/index.ts",
+            "moduleSpecifier": "./db/index.{ext}",
+            "namedImports": ["connectDB"]
+          }
+        ],
+        "removeStatements": [
           {
-            "file": "src/db/index.ts",
-            "moduleSpecifier": "../schema.js",
-            "namedImports": ["schema"]
+            "type": "statement",
+            "file": "src/index.{ext}",
+            "after": "const port: number = process.env.PORT ? Number(process.env.PORT) : 3802;",
+            "code": "await connectDB();"
           }
         ]
       }
