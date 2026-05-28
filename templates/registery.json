@@ -270,7 +270,7 @@
           {
             "type": "import",
             "file": "src/app.{ext}",
-            "moduleSpecifier": "src/middleware/morgan.middleware.{ext}",
+            "moduleSpecifier": "./middleware/morgan.middleware.{ext}",
             "defaultImport": "morganLogger"
           },
           {
