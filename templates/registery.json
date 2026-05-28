@@ -17,7 +17,13 @@
         "field": "options.swagger",
         "truthy": true
       },
-
+      "asset": [
+        {
+          "source": "src/swagger.config.{ext}",
+          "destination": "src/swagger.config.{ext}",
+          "overwrite": true
+        }
+      ],
       "templatePath": "plugins/templates/swagger",
       "files": ["swagger.config.{ext}", "swagger.config.{ext}"],
       "dependencies": {
@@ -37,33 +43,37 @@
         },
         {
           "type": "import",
-          "file": "src/app.ts",
+          "file": "src/app.{ext}",
           "moduleSpecifier": "swagger-ui-express",
           "defaultImport": "swaggerUi"
         },
         {
           "type": "statement",
-          "file": "src/app.ts",
-          "after": "const app = express();",
+          "file": "src/app.{ext}",
+          "after": "app.use(cookieParser());",
           "code": "app.use(\"/docs\", swaggerUi.serve, swaggerUi.setup(swaggerSpec));"
         }
       ],
       "uninstall": {
         "removeImports": [
           {
-            "file": "src/app.ts",
+            "type": "import",
+            "file": "src/app.{ext}",
             "moduleSpecifier": "./swagger.config.{ext}",
             "namedImports": ["swaggerSpec"]
           },
           {
-            "file": "src/app.ts",
+            "type": "import",
+            "file": "src/app.{ext}",
             "moduleSpecifier": "swagger-ui-express",
             "defaultImport": "swaggerUi"
           }
         ],
         "removeStatements": [
           {
+            "type": "statement",
             "file": "src/app.{ext}",
+            "after": "app.use(cookieParser());",
             "code": "app.use(\"/docs\", swaggerUi.serve, swaggerUi.setup(swaggerSpec));"
           }
         ]
@@ -76,6 +86,18 @@
         "field": "options.database",
         "equals": "prisma"
       },
+      "asset": [
+        {
+          "source": "./index.{ext}",
+          "destination": "src/db/index.{ext}",
+          "overwrite": true
+        },
+        {
+          "source": "./schema.prisma",
+          "destination": "src/db/schema.prisma}",
+          "overwrite": true
+        }
+      ],
       "templatePath": "plugins/templates/prisma",
       "files": ["src/db/index.ts", "src/db/index.js", "src/db/schema.prisma"],
       "dependencies": {
@@ -87,29 +109,32 @@
       "inject": [
         {
           "type": "import",
-          "file": "src/app.ts",
-          "moduleSpecifier": "./prisma.config.js",
-          "namedImports": ["prisma"]
+          "file": "src/index.{ext}",
+          "moduleSpecifier": "./db/index.{ext}",
+          "namedImports": ["connectDB"]
         },
         {
           "type": "statement",
-          "file": "src/app.ts",
-          "after": "const app = express();",
-          "code": "app.use((req, res, next) => { req.prisma = prisma; next(); });"
+          "file": "src/index.{ext}",
+          "after": "const port: number = process.env.PORT ? Number(process.env.PORT) : 3802;",
+          "code": "await connectDB();"
         }
       ],
       "uninstall": {
         "removeImports": [
           {
-            "file": "src/app.ts",
-            "moduleSpecifier": "./prisma.config.js",
-            "namedImports": ["prisma"]
+            "type": "import",
+            "file": "src/index.{ext}",
+            "moduleSpecifier": "./db/index.{ext}",
+            "namedImports": ["connectDB"]
           }
         ],
         "removeStatements": [
           {
-            "file": "src/app.ts",
-            "code": "app.use((req, res, next) => { req.prisma = prisma; next(); });"
+            "type": "statement",
+            "file": "src/index.{ext}",
+            "after": "const port: number = process.env.PORT ? Number(process.env.PORT) : 3802;",
+            "code": "await connectDB();"
           }
         ]
       }
@@ -142,7 +167,7 @@
       "inject": [
         {
           "type": "import",
-          "file": "src/index.ts",
+          "file": "src/index.{ext}",
           "moduleSpecifier": "./db/index.{ext}",
           "namedImports": ["connectDB"]
         },
@@ -169,7 +194,7 @@
         "removeStatements": [
           {
             "type": "statement",
-            "file": "src/index.ts",
+            "file": "src/index.{ext}",
             "after": "const port: number = process.env.PORT ? Number(process.env.PORT) : 3802;",
             "code": "await connectDB();"
           }
@@ -282,6 +307,13 @@
         "field": "options.socket",
         "truthy": true
       },
+      "asset": [
+        {
+          "source": "./index.{ext}",
+          "destination": "src/socket/index.{ext}",
+          "overwrite": true
+        }
+      ],
       "templatePath": "plugins/templates/socket",
       "files": ["src/socket/index.js", "src/socket/index.ts"],
 
@@ -294,29 +326,72 @@
       "inject": [
         {
           "type": "import",
-          "file": "src/index.ts",
-          "moduleSpecifier": "socket.io",
-          "defaultImport": "socketIo"
+          "file": "src/app.{ext}",
+          "moduleSpecifier": "http",
+          "defaultImport": "http"
+        },
+        {
+          "type": "import",
+          "file": "src/index.{ext}",
+          "moduleSpecifier": "http",
+          "namedImports": "./scoket/index.{ext}"
         },
         {
           "type": "statement",
-          "file": "src/index.ts",
-          "after": "const io = socketIo(server);",
-          "code": "io.on('connection', (socket) => { console.log('New client connected'); });"
+          "file": "src/app.{ext}",
+          "after": "app.use(cookieParser());",
+          "code": "const server = http.createServer(app); \n initSocket(server);"
+        },
+        {
+          "type": "replaceCall",
+          "file": "src/index.{ext}",
+          "target": "app.listen",
+          "code": "sever.listen"
+        },
+        {
+          "type": "replaceExport",
+          "file": "src/app.{ext}",
+          "from": "app",
+          "to": "sever"
         }
       ],
       "uninstall": {
         "removeImports": [
           {
-            "file": "src/index.ts",
-            "moduleSpecifier": "socket.io",
-            "defaultImport": "socketIo"
+            "type": "import",
+            "file": "src/app.{ext}",
+            "moduleSpecifier": "http",
+            "defaultImport": "http"
+          },
+          {
+            "type": "import",
+            "file": "src/index.{ext}",
+            "moduleSpecifier": "http",
+            "namedImports": "./scoket/index.{ext}"
           }
         ],
         "removeStatements": [
           {
-            "file": "src/index.ts",
-            "code": "io.on('connection', (socket) => { console.log('New client connected'); });"
+            "type": "statement",
+            "file": "src/app.{ext}",
+            "after": "app.use(cookieParser());",
+            "code": "const server = http.createServer(app); \n initSocket(server);"
+          }
+        ],
+        "replaceCalls": [
+          {
+            "type": "replaceCall",
+            "file": "src/app.{ext}",
+            "target": "server.listen",
+            "replaceWith": "app.listen"
+          }
+        ],
+        "replaceExports": [
+          {
+            "type": "replaceExport",
+            "file": "src/app.{ext}",
+            "from": "server",
+            "to": "app"
           }
         ]
       }
@@ -357,7 +432,7 @@
       "inject": [
         {
           "type": "import",
-          "file": "src/index.ts",
+          "file": "src/index.{ext}",
           "moduleSpecifier": "./db/index.{ext}",
           "namedImports": ["connectDB"]
         },
@@ -372,7 +447,7 @@
         "removeImports": [
           {
             "type": "import",
-            "file": "src/index.ts",
+            "file": "src/index.{ext}",
             "moduleSpecifier": "./db/index.{ext}",
             "namedImports": ["connectDB"]
           }
