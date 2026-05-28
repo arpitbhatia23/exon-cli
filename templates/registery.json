@@ -374,7 +374,7 @@
             "type": "import",
             "file": "src/app.{ext}",
             "moduleSpecifier": "./socket/index.{ext}",
-            "namedImports": "initSocket"
+            "namedImports": ["initSocket"]
           }
         ],
         "removeStatements": [
