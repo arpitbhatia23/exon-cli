@@ -332,9 +332,9 @@
         },
         {
           "type": "import",
-          "file": "src/index.{ext}",
-          "moduleSpecifier": "http",
-          "namedImports": "https"
+          "file": "src/app.{ext}",
+          "moduleSpecifier": "./scoket/index.{ext}",
+          "namedImports": "initSocket"
         },
         {
           "type": "statement",
