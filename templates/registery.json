@@ -334,7 +334,7 @@
           "type": "import",
           "file": "src/index.{ext}",
           "moduleSpecifier": "http",
-          "namedImports": "./scoket/index.{ext}"
+          "namedImports": "https"
         },
         {
           "type": "statement",
