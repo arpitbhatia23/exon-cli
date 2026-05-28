@@ -388,7 +388,7 @@
         "replaceCalls": [
           {
             "type": "replaceCall",
-            "file": "src/app.{ext}",
+            "file": "src/index.{ext}",
             "target": "server.listen",
             "replaceWith": "app.listen"
           }
@@ -397,8 +397,8 @@
           {
             "type": "replaceExport",
             "file": "src/app.{ext}",
-            "from": "app",
-            "to": "server"
+            "from": "server",
+            "to": "app"
           }
         ],
         "replaceExports": [
