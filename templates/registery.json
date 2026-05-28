@@ -372,9 +372,9 @@
           },
           {
             "type": "import",
-            "file": "src/index.{ext}",
-            "moduleSpecifier": "http",
-            "namedImports": "./scoket/index.{ext}"
+            "file": "src/app.{ext}",
+            "moduleSpecifier": "./socket/index.{ext}",
+            "namedImports": "initSocket"
           }
         ],
         "removeStatements": [
@@ -396,7 +396,7 @@
         "replaceImport": [
           {
             "type": "replaceExport",
-            "file": "src/app.{ext}",
+            "file": "src/index.{ext}",
             "from": "server",
             "to": "app"
           }
