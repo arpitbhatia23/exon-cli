@@ -99,7 +99,11 @@
         }
       ],
       "templatePath": "plugins/templates/prisma",
-      "files": ["src/db/index.ts", "src/db/index.js", "src/db/schema.prisma"],
+      "files": [
+        "src/db/index.ts",
+        "src/db/index.js",
+        "src/prisma/schema.prisma"
+      ],
       "dependencies": {
         "@prisma/client": "latest"
       },
