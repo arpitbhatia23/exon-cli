@@ -1,160 +1,221 @@
-# Turborepo starter
+# Exon CLI - Rapid Backend Scaffolding & Project Generation
 
-This Turborepo starter is maintained by the Turborepo core team.
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue?logo=typescript)
+![License](https://img.shields.io/badge/License-MIT-green)
+![Node](https://img.shields.io/badge/Node.js-18+-brightgreen?logo=node.js)
+![Monorepo](https://img.shields.io/badge/Monorepo-Turborepo-red?logo=turborepo)
 
-## Using this example
+> **Exon CLI** is a powerful command-line tool that accelerates backend development by automatically scaffolding production-ready Node.js/Express applications with built-in best practices, plugin architecture, and template-driven project generation.
 
-Run the following command:
+## 🚀 Features
 
-```sh
-npx create-turbo@latest
+- ⚡ **Rapid Project Generation** - Create fully structured backend projects in seconds
+- 📦 **Pre-built Templates** - Express.js templates in JavaScript and TypeScript with best practices
+- 🔌 **Plugin System** - Extensible plugin architecture supporting Prisma, Drizzle, Mongoose, Socket.io, Docker, Swagger, and Logger
+- 🏗️ **Monorepo Architecture** - Optimized Turborepo structure for scalable applications
+- 📝 **Type Safety** - 100% TypeScript support across CLI and core packages
+- ✨ **Code Quality** - Built-in ESLint and Prettier configurations
+- 🔧 **Developer Friendly** - Interactive CLI with intuitive commands
+- 📚 **Comprehensive Documentation** - Full docs and examples included
+
+## 🎯 What Problems Does Exon Solve?
+
+- **Bootstrap Fatigue** - Save hours setting up project structure, configurations, and boilerplate
+- **Inconsistent Standards** - Ensures all projects follow the same coding standards and best practices
+- **Configuration Hell** - Automated database, ORM, and middleware configuration
+- **Scalability** - Monorepo support for managing multiple applications and shared packages
+- **Time to Market** - Go from zero to production-ready in minutes
+
+## 📦 Project Structure
+
+```
+exon-cli/
+├── cli/                          # Command-line interface
+├── packages/
+│   └── cli-core/                 # Core CLI logic & business logic
+│       ├── plugins/              # Plugin registry & execution engine
+│       ├── project/              # Project configuration management
+│       └── types/                # Shared TypeScript types
+├── server/                       # Backend server (Node.js/Express)
+├── templates/                    # Pre-built project templates
+│   ├── node-express-template-js/ # JavaScript Express template
+│   ├── node-express-template-ts/ # TypeScript Express template
+│   └── plugins/                  # Plugin templates (Prisma, Drizzle, etc.)
+├── apps/docs/                    # Documentation site (Next.js)
+└── turbo.json                    # Turborepo configuration
 ```
 
-## What's inside?
+## ⚙️ Quick Start
 
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+### Installation
 
 ```sh
-cd my-turborepo
+npm install -g exon-cli
+# or with yarn
+yarn global add exon-cli
+# or with pnpm
+pnpm add -g exon-cli
+```
+
+### Create Your First Project
+
+```sh
+exon create my-backend-app
+cd my-backend-app
+npm run dev
+```
+
+### Add Plugins
+
+Enhance your project with built-in plugins:
+
+```sh
+exon add prisma      # Add Prisma ORM
+exon add mongoose    # Add Mongoose
+exon add swagger     # Add Swagger documentation
+exon add docker      # Add Docker support
+exon add socket      # Add Socket.io
+exon add logger      # Add logging
+```
+
+## 📚 Available Templates
+
+- **Node Express TypeScript** - Full-featured Express.js template with TypeScript
+- **Node Express JavaScript** - Express.js template in vanilla JavaScript
+- Both include:
+  - REST API structure
+  - Database layer setup
+  - Error handling utilities
+  - Health check endpoints
+  - Pre-configured routing
+
+## 🔌 Supported Plugins
+
+| Plugin          | Description                           |
+| --------------- | ------------------------------------- |
+| **Prisma**      | Modern ORM with database migrations   |
+| **Drizzle**     | Lightweight SQL ORM & query builder   |
+| **Mongoose**    | MongoDB object modeling               |
+| **Socket.io**   | Real-time bidirectional communication |
+| **Docker**      | Containerization with docker-compose  |
+| **Swagger API** | Auto-generated API documentation      |
+| **Logger**      | Structured logging configuration      |
+
+## 🏗️ Architecture
+
+Built as a **Monorepo** using Turborepo for:
+
+- Efficient builds with incremental compilation
+- Shared packages and configurations
+- Fast parallel task execution
+- Optimized for teams and scaling
+
+## 💻 Development
+
+### Build all packages
+
+```sh
 turbo build
 ```
 
-Without global `turbo`, use your package manager:
+### Start development mode
 
 ```sh
-cd my-turborepo
-npx turbo build
-pnpm dlx turbo build
-pnpm exec turbo build
-```
-
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo build --filter=docs
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
 turbo dev
 ```
 
-Without global `turbo`, use your package manager:
+### Run tests
 
 ```sh
-cd my-turborepo
-npx turbo dev
-pnpm exec turbo dev
-pnpm exec turbo dev
+turbo test
 ```
 
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+## 📖 Use Cases
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+Exon CLI is perfect for:
+
+- **Startup MVPs** - Launch production-ready backends in days, not weeks
+- **Enterprise Microservices** - Consistent boilerplate across multiple services
+- **SaaS Applications** - Database-agnostic templating with ORM flexibility
+- **Real-time Applications** - Pre-configured Socket.io support
+- **API-First Development** - REST APIs with automatic Swagger documentation
+- **Team Collaboration** - Standardized project structure across teams
+- **Learning Node.js** - Best practices built-in for developers new to Node.js
+
+## 🔄 Why Choose Exon CLI?
+
+| Aspect               | Exon CLI           | Manual Setup   | Other Tools |
+| -------------------- | ------------------ | -------------- | ----------- |
+| Setup Time           | **2 minutes**      | Hours          | 10-30 min   |
+| Best Practices       | ✅ Built-in        | ❌ Your choice | ⚠️ Basic    |
+| Plugin System        | ✅ Extensible      | ❌ Manual      | ⚠️ Limited  |
+| Monorepo Support     | ✅ Yes             | ⚠️ Manual      | ❌ No       |
+| Type Safety          | ✅ Full TypeScript | ⚠️ Optional    | ⚠️ Partial  |
+| Database Flexibility | ✅ Multiple ORMs   | ⚠️ Manual      | ❌ Fixed    |
+
+## 🤝 Contributing
+
+We welcome contributions! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
 
 ```sh
-turbo dev --filter=web
+# Clone the repository
+git clone https://github.com/yourusername/exon-cli.git
+cd exon-cli
+
+# Install dependencies
+pnpm install
+
+# Start development
+turbo dev
 ```
 
-Without global `turbo`:
+## 📜 Code of Conduct
 
-```sh
-npx turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-```
+Please read our [Code of Conduct](./CODE_OF_CONDUCT.md) to understand community standards.
 
-### Remote Caching
+## 📄 License
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+MIT License - feel free to use Exon CLI in your projects ([LICENSE](./cli/LICENSE))
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+## 🙋 Support & Community
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
+- 📖 [Full Documentation](./apps/docs/)
+- 🐛 [Report Issues](https://github.com/yourusername/exon-cli/issues)
+- 💡 [Feature Requests](https://github.com/yourusername/exon-cli/discussions)
+- 💬 [Discussions & Q&A](https://github.com/yourusername/exon-cli/discussions)
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+## 🎓 Learning Resources
 
-```sh
-cd my-turborepo
-turbo login
-```
+- [Node.js Best Practices](https://nodejs.org/en/docs/)
+- [Express.js Guide](https://expressjs.com/)
+- [TypeScript Handbook](https://www.typescriptlang.org/docs/)
+- [Turborepo Documentation](https://turborepo.dev/)
+- [REST API Design Guidelines](https://restfulapi.net/)
 
-Without global `turbo`, use your package manager:
+## ⭐ Show Your Support
 
-```sh
-cd my-turborepo
-npx turbo login
-pnpm exec turbo login
-pnpm exec turbo login
-```
+If Exon CLI helps you, give it a ⭐ on GitHub! Your support helps us grow the community.
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+## 🚀 Roadmap
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+- [ ] GUI-based project generator
+- [ ] GraphQL template support
+- [ ] Authentication plugins (JWT, OAuth, Passport.js)
+- [ ] Testing framework integration (Jest, Vitest)
+- [ ] CI/CD pipeline templates
+- [ ] Cloud deployment helpers (AWS, GCP, Azure)
+- [ ] Performance monitoring integration
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+## 📊 Project Stats
 
-```sh
-turbo link
-```
+- 🎯 Production-ready templates
+- 🔌 7+ Built-in plugins
+- 📦 Monorepo architecture
+- ⚡ Zero-config setup
+- 🌍 TypeScript & JavaScript support
 
-Without global `turbo`:
+---
 
-```sh
-npx turbo link
-pnpm exec turbo link
-pnpm exec turbo link
-```
+**Built with ❤️ by the Exon community**
 
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
-# exon-cli
+[⬆ Back to top](#exon-cli---rapid-backend-scaffolding--project-generation)
