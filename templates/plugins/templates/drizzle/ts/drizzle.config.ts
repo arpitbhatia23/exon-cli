@@ -10,7 +10,7 @@ console.log("DATABASE_URL =", process.env.DATABASE_URL);
 export default defineConfig({
   out: "./drizzle", // Where migration files will go
   schema: "./src/db/drizzle/schema.ts", // Path to your schema file
-  dialect: "postgress",
+  dialect: "postgresql",
   dbCredentials: {
     url: process.env.DATABASE_URL, // drizzle-kit v0.5+ uses `url`
   },

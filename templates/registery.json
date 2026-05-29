@@ -306,11 +306,13 @@
       "asset": [
         {
           "source": "./dockerfile",
-          "destination": "./dockerfile"
+          "destination": "./dockerfile",
+          "overwrite": false
         },
         {
           "source": "./.dockerignore",
-          "destination": "./.dockerignore"
+          "destination": "./.dockerignore",
+          "overwrite": false
         }
       ],
       "templatePath": "plugins/templates/docker",
