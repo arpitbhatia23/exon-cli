@@ -1,9 +1,10 @@
 import { Command } from "commander";
-import { loadProjectConfig } from "../core/project/loadProjectConfig.js";
+import { loadProjectConfig } from "@exon-cli/core";
 import { cancel, intro, outro, spinner } from "@clack/prompts";
-import { saveProjectConfig } from "../core/project/saveProjectConfig.js";
-import { plugins } from "../plugins/index.js";
-import { runPlugins } from "../plugins/runPlugin.js";
+import { saveProjectConfig } from "@exon-cli/core";
+import { plugins } from "@exon-cli/core";
+import { runPlugins } from "@exon-cli/core";
+import type { pluginContext } from "@exon-cli/core";
 
 const addcommand = new Command("add");
 
@@ -27,6 +28,7 @@ addcommand
     }
     const context = {
       language: config.language,
+      database: config.database ?? "",
       projectName: process.cwd(),
       targetDir: process.cwd(),
     };
@@ -38,7 +40,7 @@ addcommand
       await runPlugins(plugin, context, { force: true });
     } catch (error) {
       s.stop(`${pluginName} installation failed`, 1);
-
+      console.log(error);
       cancel("Plugin installation failed");
 
       process.exit(1);

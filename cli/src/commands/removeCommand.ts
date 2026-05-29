@@ -1,11 +1,11 @@
 import { Command } from "commander";
 
-import { loadProjectConfig } from "../core/project/loadProjectConfig.js";
-import { saveProjectConfig } from "../core/project/saveProjectConfig.js";
+import { loadProjectConfig } from "@exon-cli/core";
+import { saveProjectConfig } from "@exon-cli/core";
 import fsExtra from "fs-extra/esm";
 import path from "node:path";
 import { cancel, intro, outro, spinner } from "@clack/prompts";
-import { plugins } from "../plugins/index.js";
+import { plugins } from "@exon-cli/core";
 
 export const removeCommand = new Command("remove");
 

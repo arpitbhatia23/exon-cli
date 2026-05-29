@@ -11,14 +11,14 @@ import {
   installdependencies,
   selectDatabase,
   selectLanguage,
-} from "./core/prompt.js";
+} from "@exon-cli/core";
 
-import { createProjectConfig } from "./core/project/createProjectConfig.js";
+import { createProjectConfig } from "@exon-cli/core";
 import { addcommand } from "./commands/addCommand.js";
 import { removeCommand } from "./commands/removeCommand.js";
-import type { Plugin, pluginContext } from "./plugins/remote/types/index.js";
-import { loadPlugins, plugins } from "./plugins/index.js";
-import { runPlugins } from "./plugins/runPlugin.js";
+import type { Plugin, pluginContext } from "@exon-cli/core";
+import { loadPlugins, plugins } from "@exon-cli/core";
+import { runPlugins } from "@exon-cli/core";
 const program = new Command();
 program.addCommand(addcommand);
 program.addCommand(removeCommand);
@@ -43,7 +43,7 @@ Docs:
 
 🚀 exon-cli just saved you 30 minutes of setup!
 
-Star the repo to support the project: https://github.com/arpitbhatia23/exon
+Star the repo to support the project: https://github.com/arpitbhatia23/exon-cli
 `,
   );
 
@@ -76,7 +76,7 @@ program
         );
         process.exit(1);
       }
-      let language: string = await selectLanguage(options);
+      let language: "TypeScript" | "JavaScript" = await selectLanguage(options);
       let database: string = await selectDatabase(options);
 
       await copyTemplate(language, name, targetDir, s);
@@ -90,7 +90,6 @@ program
       };
 
       const appliedPlugins: string[] = [];
-
       for (const plugin of plugins) {
         if (plugin.shouldRun(context)) {
           await runPlugins(plugin, context, { force: true });
