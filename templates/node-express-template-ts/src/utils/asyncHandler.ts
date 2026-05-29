@@ -1,5 +1,4 @@
 import type { Request, Response, NextFunction } from "express";
-import logger from "./logger.js";
 
 type AsyncFunction = (
   req: Request,
@@ -16,7 +15,6 @@ const asyncHandler =
       // If error is an ApiError, use its statusCode, otherwise default 500
       const statusCode = error.statuscode || 500;
       const message = error.message || "Something went wrong";
-      logger.error(error);
       res.status(statusCode).json({
         success: false,
         message,
