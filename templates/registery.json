@@ -303,18 +303,19 @@
         "field": "options.docker",
         "truthy": true
       },
-      "templatePath": "plugins/templates/docker",
-      "files": [
-        "packages/plugins/docker/index.ts",
-        "packages/plugins/docker/dockerHelper.ts"
+      "asset": [
+        {
+          "source": "./dockerfile",
+          "destination": "./dockerfile"
+        },
+        {
+          "source": "./.dockerignore",
+          "destination": "./.dockerignore"
+        }
       ],
-      "dependencies": {},
-      "devDependencies": {},
-      "inject": [],
-      "uninstall": {
-        "removeImports": [],
-        "removeStatements": []
-      }
+      "templatePath": "plugins/templates/docker",
+      "files": ["dockerfile", ".dockerignore", "docker-compose.yml"],
+      "generate": ["docker-compose"]
     },
     "socket": {
       "name": "socket",
