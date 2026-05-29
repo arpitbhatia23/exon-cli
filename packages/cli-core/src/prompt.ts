@@ -70,7 +70,6 @@ export const selectDatabase = async (options: dbTypes): Promise<string> => {
     options: DB_OPTIONS,
   });
 
-  console.log(selected);
   if (isCancel(selected)) {
     cancel("Project creation cancelled.");
     process.exit(0);
@@ -95,10 +94,8 @@ export const copyTemplate = async (
   if (!template) {
     cancel("Template not found");
   }
-  console.log(template);
   try {
     s.start("Downloading template from GitHub...");
-    console.log(targetDir);
     const result = await downloadTemplate(
       `github:${template?.repo}/${template?.path}`,
       {
@@ -108,7 +105,6 @@ export const copyTemplate = async (
     );
     s.stop("Project structure created");
   } catch (error) {
-    console.log(error);
     s.stop("Failed to create project structure", 1);
     cancel("Template download failed!");
   }
