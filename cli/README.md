@@ -2,8 +2,8 @@
 
 [![npm version](https://img.shields.io/npm/v/exon-cli.svg?style=flat-square&color=blue)](https://www.npmjs.com/package/exon-cli)
 [![npm downloads](https://img.shields.io/npm/dm/exon-cli.svg?style=flat-square&color=green)](https://www.npmjs.com/package/exon-cli)
-[![license](https://img.shields.io/github/license/arpitbhatia23/exon.svg?style=flat-square)](https://github.com/arpitbhatia23/exon/blob/main/LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/arpitbhatia23/exon.svg?style=flat-square&color=yellow)](https://github.com/arpitbhatia23/exon/stargazers)
+
+[![GitHub stars](https://img.shields.io/github/stars/arpitbhatia23/exon-cli.svg?style=flat-square&color=yellow)](https://github.com/arpitbhatia23/exon-cli/stargazers)
 
 **Exon CLI** is a modern, ultra-fast **Express generator** and API scaffolding tool designed to bootstrap production-ready Express.js applications in under 30 seconds. Stop wasting hours manually setting up TypeScript configs, database ORMs, Swagger documentation, Docker files, and structured logging. Exon CLI generates clean, enterprise-grade, standard-compliant boilerplate instantly so you can focus on building features.
 
@@ -21,16 +21,16 @@ Traditional Express setup is tedious, manual, and prone to configuration errors.
 
 ### Legacy `express-generator` vs. Modern **Exon CLI**
 
-| Feature | Legacy `express-generator` | ⚡ Exon CLI |
-| :--- | :---: | :---: |
-| **Language Support** | JavaScript only (CommonJS) | **TypeScript & JavaScript (ESM)** |
-| **Scaffolding Time** | 45 - 90 minutes of extra configs | **30 Seconds (Zero-Config)** |
-| **Database Support** | ❌ None | **Prisma, Mongoose, & Drizzle** |
-| **API Documentation** | ❌ None | **Auto-generated Swagger/OpenAPI** |
-| **Containerization** | ❌ None | **Production-ready Docker & Docker Compose** |
-| **Advanced Logging** | ❌ Basic console.log | **Winston Logger & Morgan Integration** |
-| **Realtime Features** | ❌ None | **Built-in Socket.IO Setup** |
-| **Modular Extensibility** | ❌ Monolithic | **Dynamic `add`/`remove` Plugin CLI** |
+| Feature                   |    Legacy `express-generator`    |                 ⚡ Exon CLI                  |
+| :------------------------ | :------------------------------: | :------------------------------------------: |
+| **Language Support**      |    JavaScript only (CommonJS)    |      **TypeScript & JavaScript (ESM)**       |
+| **Scaffolding Time**      | 45 - 90 minutes of extra configs |         **30 Seconds (Zero-Config)**         |
+| **Database Support**      |             ❌ None              |       **Prisma, Mongoose, & Drizzle**        |
+| **API Documentation**     |             ❌ None              |      **Auto-generated Swagger/OpenAPI**      |
+| **Containerization**      |             ❌ None              | **Production-ready Docker & Docker Compose** |
+| **Advanced Logging**      |       ❌ Basic console.log       |   **Winston Logger & Morgan Integration**    |
+| **Realtime Features**     |             ❌ None              |         **Built-in Socket.IO Setup**         |
+| **Modular Extensibility** |          ❌ Monolithic           |    **Dynamic `add`/`remove` Plugin CLI**     |
 
 ---
 
@@ -38,13 +38,13 @@ Traditional Express setup is tedious, manual, and prone to configuration errors.
 
 Exon CLI is packed with all the tools required for modern Node.js and Express backend development:
 
-*   **TypeScript & JavaScript (ESM)**: Fully-configured `tsconfig.json` with ESM module resolution (`import`/`export`).
-*   **Swagger/OpenAPI Documentation**: Interactive API testing UI pre-loaded at `/docs`.
-*   **Database ORMs/ODMs**: Out-of-the-box setups for **Prisma**, **Drizzle**, and **Mongoose (MongoDB)**.
-*   **Robust Logging**: Enterprise-grade multi-transport logging via **Winston** and **Morgan** (console + file log rotation).
-*   **Containerization**: Pre-configured `Dockerfile`, `.dockerignore`, and multi-container `docker-compose.yml`.
-*   **Realtime Communication**: Pre-integrated **Socket.IO** server support.
-*   **Production Architecture**: Pre-configured global error handling, centralized environment variables schema, and unified async handler wrappers.
+- **TypeScript & JavaScript (ESM)**: Fully-configured `tsconfig.json` with ESM module resolution (`import`/`export`).
+- **Swagger/OpenAPI Documentation**: Interactive API testing UI pre-loaded at `/docs`.
+- **Database ORMs/ODMs**: Out-of-the-box setups for **Prisma**, **Drizzle**, and **Mongoose (MongoDB)**.
+- **Robust Logging**: Enterprise-grade multi-transport logging via **Winston** and **Morgan** (console + file log rotation).
+- **Containerization**: Pre-configured `Dockerfile`, `.dockerignore`, and multi-container `docker-compose.yml`.
+- **Realtime Communication**: Pre-integrated **Socket.IO** server support.
+- **Production Architecture**: Pre-configured global error handling, centralized environment variables schema, and unified async handler wrappers.
 
 ---
 
@@ -66,17 +66,17 @@ npx exon-cli create my-api --ts --prisma --docker --logger --swagger --socket
 
 #### Supported `create` Flags
 
-| Flag | Shorthand | Description |
-| :--- | :---: | :--- |
-| `--ts` | `-t` | Generate a **TypeScript** backend (Default). |
-| `--js` | `-j` | Generate a **JavaScript** backend (ESM). |
-| `--prisma` | `-p` | Integrate **Prisma ORM** (PostgreSQL/MySQL/SQLite). |
-| `--mongoose` | `-m` | Integrate **Mongoose ODM** (MongoDB). |
-| `--drizzle` | `-d` | Integrate **Drizzle ORM** (PostgreSQL/MySQL/SQLite). |
-| `--docker` | `-D` | Add **Docker** configuration (`Dockerfile`, `docker-compose.yml`). |
-| `--logger` | `-L` | Add structured **Winston** & **Morgan** logger. |
-| `--swagger` | `-S` | Add interactive **Swagger OpenAPI** API documentation. |
-| `--socket` | | Add **Socket.IO** realtime server configuration. |
+| Flag         | Shorthand | Description                                                        |
+| :----------- | :-------: | :----------------------------------------------------------------- |
+| `--ts`       |   `-t`    | Generate a **TypeScript** backend (Default).                       |
+| `--js`       |   `-j`    | Generate a **JavaScript** backend (ESM).                           |
+| `--prisma`   |   `-p`    | Integrate **Prisma ORM** (PostgreSQL/MySQL/SQLite).                |
+| `--mongoose` |   `-m`    | Integrate **Mongoose ODM** (MongoDB).                              |
+| `--drizzle`  |   `-d`    | Integrate **Drizzle ORM** (PostgreSQL/MySQL/SQLite).               |
+| `--docker`   |   `-D`    | Add **Docker** configuration (`Dockerfile`, `docker-compose.yml`). |
+| `--logger`   |   `-L`    | Add structured **Winston** & **Morgan** logger.                    |
+| `--swagger`  |   `-S`    | Add interactive **Swagger OpenAPI** API documentation.             |
+| `--socket`   |           | Add **Socket.IO** realtime server configuration.                   |
 
 ---
 
@@ -85,6 +85,7 @@ npx exon-cli create my-api --ts --prisma --docker --logger --swagger --socket
 One of Exon CLI's most powerful features is its **decoupled plugin architecture**. If you generated a basic project and later decide you need database integration or Docker containment, you can add or remove them instantly.
 
 ### Install a Feature
+
 Add a new database, documentation, or containment system to your existing Exon project:
 
 ```bash
@@ -96,6 +97,7 @@ npx exon-cli add socket
 ```
 
 ### Uninstall a Feature
+
 Cleanly remove any plugin and its configuration files from the project automatically:
 
 ```bash
@@ -132,6 +134,7 @@ my-api/
 ## ⚡ Quick Start Guide
 
 ### 1. Generate Your Express API
+
 Bootstrap a TypeScript application with Prisma ORM and Docker:
 
 ```bash
@@ -148,6 +151,7 @@ npm run dev
 ```
 
 ### 3. Open Interactive API Documentation
+
 Visit the following link in your browser to view your auto-generated API routes and test them:
 
 ```txt
@@ -164,13 +168,7 @@ To enable seamless add/remove plugin mechanics, Exon stores the current scaffold
 {
   "language": "TypeScript",
   "database": "PRISMA",
-  "plugins": [
-    "docker",
-    "prisma",
-    "logger",
-    "swagger",
-    "socket"
-  ]
+  "plugins": ["docker", "prisma", "logger", "swagger", "socket"]
 }
 ```
 
@@ -197,13 +195,14 @@ npm run build
 ## 🔍 SEO Search Keywords & Target Audience
 
 Exon CLI is built for developers looking for:
-*   *Express generator ts / TypeScript Express generator*
-*   *Express project generator CLI*
-*   *Create-express-app template*
-*   *Express boilerplate with Swagger and Prisma*
-*   *Node.js Express backend builder*
-*   *Fastify / Express CLI scaffolders*
+
+- _Express generator ts / TypeScript Express generator_
+- _Express project generator CLI_
+- _Create-express-app template_
+- _Express boilerplate with Swagger and Prisma_
+- _Node.js Express backend builder_
+- _Fastify / Express CLI scaffolders_
 
 ---
 
-*Made with ⚡ by Arpit Bhatia and the Exon Community.*
+_Made with ⚡ by Arpit Bhatia and the Exon Community._
