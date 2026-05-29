@@ -53,7 +53,7 @@
     "url": "https://github.com/arpitbhatia23/exon-cli/issues",
     "email": "aurpitaurpit@gmail.com"
   },
-  "homepage": "https://personal-580f42c0.mintlify.app/",
+  "homepage": "https://exon-cli-docs.vercel.app/",
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=9.0.0"
