@@ -1,19 +1,37 @@
 import { cancel, isCancel, outro, select } from "@clack/prompts";
-import { DB_OPTIONS, LANG_OPTION } from "./types/options.js";
-import path from "path";
+import {
+  DB_OPTIONS,
+  LANG_OPTION,
+  PACKAGE_MANAGERS,
+  PackageManager,
+} from "./types/options.js";
+// import path from "path";
 import fs from "fs-extra";
-import { fileURLToPath } from "url";
+// import { fileURLToPath } from "url";
 import { spawn } from "child_process";
 import color from "picocolors";
 import { downloadTemplate } from "giget";
 import { registry } from "./plugins/registry.js";
 import type { Registry } from "./plugins/index.js";
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
 
 type langType = {
   ts?: "TypeScript";
   js?: "JavaScript";
+};
+
+export const selectPackageManger = async (): Promise<PackageManager> => {
+  const selected = await select({
+    message: "which package manager you want to use ?",
+    options: PACKAGE_MANAGERS,
+  });
+
+  if (isCancel(selected)) {
+    cancel("Project creation cancelled.");
+    process.exit(0);
+  }
+  return selected as PackageManager;
 };
 
 export const selectLanguage = async (
@@ -118,13 +136,14 @@ export const installdependencies = async (
   s: any,
   pkgPath: string,
   targetDir: string,
+  packageManger: PackageManager,
 ): Promise<void> => {
   if (fs.existsSync(pkgPath)) {
     s.start("Installing dependencies...");
 
     try {
       await new Promise<void>((resolve, reject) => {
-        const child = spawn("npm", ["install", "--loglevel=error"], {
+        const child = spawn(packageManger, ["install", "--loglevel=error"], {
           cwd: targetDir,
           stdio: "ignore",
           shell: true,

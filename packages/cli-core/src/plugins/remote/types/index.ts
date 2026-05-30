@@ -1,3 +1,5 @@
+import { PackageManager } from "../../../types/options";
+
 export type RemotePluginConfig = {
   name: string;
   type: Plugin["type"];
@@ -41,6 +43,7 @@ export interface pluginContext {
   language: "TypeScript" | "JavaScript";
   targetDir: string;
   database?: string;
+  packageManger: PackageManager;
   options?: {
     docker?: string;
     logger?: string;

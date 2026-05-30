@@ -3,6 +3,7 @@ export {
   installdependencies,
   selectDatabase,
   selectLanguage,
+  selectPackageManger,
 } from "./prompt.js";
 
 export { createProjectConfig } from "./project/createProjectConfig.js";

@@ -1,6 +1,6 @@
 {
   "name": "@exon-cli/core",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Core utilities and engine for Exon CLI",
   "type": "module",
   "main": "./dist/index.js",
