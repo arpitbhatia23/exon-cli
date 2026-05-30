@@ -29,6 +29,7 @@ addcommand
     const context = {
       language: config.language,
       database: config.database ?? "",
+      packageManger: config?.packageManger,
       projectName: process.cwd(),
       targetDir: process.cwd(),
     };

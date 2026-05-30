@@ -19,6 +19,7 @@ import { removeCommand } from "./commands/removeCommand.js";
 import type { Plugin, pluginContext } from "@exon-cli/core";
 import { loadPlugins, plugins } from "@exon-cli/core";
 import { runPlugins } from "@exon-cli/core";
+import { selectPackageManger } from "@exon-cli/core";
 const program = new Command();
 program.addCommand(addcommand);
 program.addCommand(removeCommand);
@@ -37,6 +38,8 @@ Examples:
   $ exon-cli create shop-api -j -m    # Create with JS and Mongoose
   $ exon-cli create crm -t -p -D      # Create with TS, Prisma, and Docker enabled
   $ exon-cli create app -t -d         # Create with TS and Drizzle ORM
+  $ exon-cli create api -t --pnpm     # Create with TS and pnpm
+  $ exon-cli create backend -t -p --yarn  # Create with TS, Prisma, and yarn
 
 Docs:
   https://www.npmjs.com/package/exon-cli
@@ -59,6 +62,10 @@ program
   .option("--mongoose, -m", "use Mongoose ODM")
   .option("--prisma, -p", "use Prisma ORM")
   .option("--drizzle, -d", "use Drizzle ORM")
+  .option("--npm", "use npm as package manager")
+  .option("--pnpm", "use pnpm as package manager")
+  .option("--yarn", "use yarn as package manager")
+  .option("--bun", "use bun as package manager")
   .option("--docker, -D", "enable Docker support")
   .option("--logger, -L", "enable Morgan & Winston logging")
   .option("--swagger, -S", "enable Swagger API documentation")
@@ -76,6 +83,7 @@ program
         );
         process.exit(1);
       }
+      let packageManger = await selectPackageManger(options);
       let language: "TypeScript" | "JavaScript" = await selectLanguage(options);
       let database: string = await selectDatabase(options);
 
@@ -85,6 +93,7 @@ program
         language,
         projectName: name,
         targetDir,
+        packageManger: packageManger,
         database,
         options,
       };
@@ -99,14 +108,15 @@ program
       await createProjectConfig(targetDir, {
         language,
         database,
-
+        packageManger: packageManger,
         plugins: appliedPlugins,
       });
 
       const pkgPath = path.join(targetDir, "package.json");
-      await installdependencies(s, pkgPath, targetDir);
+      await installdependencies(s, pkgPath, targetDir, packageManger);
     } catch (error) {
       if (error) {
+        console.log(error);
         cancel("\n👋 Project creation cancelled by user.");
         process.exit(0); // Exit cleanly
       }

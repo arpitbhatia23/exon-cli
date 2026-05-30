@@ -4,15 +4,15 @@
 node_modules
 .pnp
 .pnp.js
+.env
+.env.development.local
+.env.test.local
+.env.production.local
 
 # Local env files
 !templates/**/*.env
 !templates/**/*.env.example
 !templates/**/*.env.template.env.local
-.env
-.env.development.local
-.env.test.local
-.env.production.local
 
 # Testing
 coverage

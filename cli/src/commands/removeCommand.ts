@@ -29,6 +29,7 @@ removeCommand
     const context = {
       language: config.language,
       projectName: process.cwd(),
+      packageManger: config?.packageManger,
       targetDir: process.cwd(),
     };
     const targetDir = process.cwd();

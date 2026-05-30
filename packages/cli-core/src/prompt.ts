@@ -21,9 +21,37 @@ type langType = {
   js?: "JavaScript";
 };
 
-export const selectPackageManger = async (): Promise<PackageManager> => {
+type packageManagerType = {
+  npm?: string;
+  pnpm?: string;
+  yarn?: string;
+  bun?: string;
+};
+
+export const selectPackageManger = async (
+  options: packageManagerType,
+): Promise<PackageManager> => {
+  const pmKeys: (keyof packageManagerType)[] = ["npm", "pnpm", "yarn", "bun"];
+
+  // Filter only selected package manager flags
+  const pmFlags: (keyof packageManagerType)[] = pmKeys.filter((key) =>
+    Boolean(options[key]),
+  );
+
+  if (pmFlags.length > 1) {
+    cancel("❌ Choose only one package manager option.");
+    process.exit(1);
+  }
+
+  // Return selected package manager if a flag is set
+  if (options.npm) return "npm";
+  if (options.pnpm) return "pnpm";
+  if (options.yarn) return "yarn";
+  if (options.bun) return "bun";
+
+  // Otherwise, prompt user interactively
   const selected = await select({
-    message: "which package manager you want to use ?",
+    message: "Which package manager do you want to use?",
     options: PACKAGE_MANAGERS,
   });
 

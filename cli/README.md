@@ -61,7 +61,12 @@ Generate a brand-new backend directory with your exact technology choices.
 npx exon-cli create my-api
 
 # Non-interactive CLI flags setup:
-npx exon-cli create my-api --ts --prisma --docker --logger --swagger --socket
+npx exon-cli create my-api --ts --prisma --docker --logger --swagger --socket --pnpm
+
+# With specific language, database, and package manager:
+npx exon-cli create blog-api --ts --prisma --pnpm
+npx exon-cli create ecommerce --ts --mongoose --yarn
+npx exon-cli create microservice --js --drizzle --npm
 ```
 
 #### Supported `create` Flags
@@ -73,6 +78,10 @@ npx exon-cli create my-api --ts --prisma --docker --logger --swagger --socket
 | `--prisma`   |   `-p`    | Integrate **Prisma ORM** (PostgreSQL/MySQL/SQLite).                |
 | `--mongoose` |   `-m`    | Integrate **Mongoose ODM** (MongoDB).                              |
 | `--drizzle`  |   `-d`    | Integrate **Drizzle ORM** (PostgreSQL/MySQL/SQLite).               |
+| `--npm`      |           | Use **npm** as package manager.                                    |
+| `--pnpm`     |           | Use **pnpm** as package manager (Fast & efficient).                |
+| `--yarn`     |           | Use **yarn** as package manager.                                   |
+| `--bun`      |           | Use **bun** as package manager (Experimental).                     |
 | `--docker`   |   `-D`    | Add **Docker** configuration (`Dockerfile`, `docker-compose.yml`). |
 | `--logger`   |   `-L`    | Add structured **Winston** & **Morgan** logger.                    |
 | `--swagger`  |   `-S`    | Add interactive **Swagger OpenAPI** API documentation.             |
@@ -135,11 +144,23 @@ my-api/
 
 ### 1. Generate Your Express API
 
-Bootstrap a TypeScript application with Prisma ORM and Docker:
+Bootstrap a TypeScript application with Prisma ORM, Docker, and your preferred package manager:
 
 ```bash
-npx exon-cli create my-cool-app --ts --prisma --docker
+# Interactive mode - will prompt you to select language, database, and package manager
+npx exon-cli create my-cool-app
+
+# Or with flags - specify language, database, and package manager
+npx exon-cli create my-cool-app --ts --prisma --docker --pnpm
+npx exon-cli create another-api --ts --mongoose --yarn
 ```
+
+**Package Manager Options:**
+
+- `--npm` - Use npm (default if not specified interactively)
+- `--pnpm` - Use pnpm for faster, disk-efficient dependency management
+- `--yarn` - Use yarn for predictable dependency resolution
+- `--bun` - Use bun for ultra-fast JavaScript execution (experimental)
 
 ### 2. Startup your server
 
@@ -168,6 +189,7 @@ To enable seamless add/remove plugin mechanics, Exon stores the current scaffold
 {
   "language": "TypeScript",
   "database": "PRISMA",
+  "packageManger": "pnpm",
   "plugins": ["docker", "prisma", "logger", "swagger", "socket"]
 }
 ```
