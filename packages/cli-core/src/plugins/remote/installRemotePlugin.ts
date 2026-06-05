@@ -4,10 +4,10 @@ import { outro } from "@clack/prompts";
 import { PackageManager } from "../../types/options.js";
 
 const addCommands: Record<PackageManager, string> = {
-  npm: "npm install",
-  pnpm: "pnpm add",
-  yarn: "yarn add",
-  bun: "bun add",
+  npm: "npm install  --ignore-scripts",
+  pnpm: "pnpm add  --ignore-scripts",
+  yarn: "yarn add  --ignore-scripts",
+  bun: "bun add  --ignore-scripts",
 } as const;
 function buildPackages(deps?: Record<string, string>): string {
   return Object.entries(deps ?? {})
@@ -36,7 +36,7 @@ export async function installRemotePlugin(
   }
 
   if (devDependencies) {
-    runCommand(`pnpm add -D ${devDependencies}`, targetDir);
+    runCommand(`${addCommands[packageManger]} ${devDependencies}`, targetDir);
   }
 
   outro(`✅ Installed dependencies for ${config.name}`);

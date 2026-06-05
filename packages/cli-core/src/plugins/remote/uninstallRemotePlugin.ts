@@ -10,14 +10,21 @@ import {
 } from "./applyTsMorphInjection.js";
 import fs from "fs";
 import { outro } from "@clack/prompts";
+import { PackageManager } from "../../types/options.js";
 function buildPackageNames(deps?: Record<string, string>): string {
   return Object.keys(deps ?? {}).join(" ");
 }
 
+const removeCommands: Record<PackageManager, string> = {
+  npm: "npm uninstall",
+  pnpm: "pnpm remove",
+  yarn: "yarn remove",
+  bun: "bun remove",
+} as const;
 function runCommand(command: string, cwd: string) {
   execSync(command, {
     cwd,
-    stdio: "inherit",
+    stdio: "ignore",
   });
 }
 
@@ -26,13 +33,13 @@ export async function uninstallRemotePlugin(
   context: pluginContext,
 ) {
   const targetDir = context.targetDir ?? process.cwd();
-
   const dependencies = buildPackageNames(config.dependencies);
   const devDependencies = buildPackageNames(config.devDependencies);
+  const packageManger = context?.packageManger;
   const packages = [dependencies, devDependencies].filter(Boolean).join(" ");
 
   if (packages) {
-    runCommand(`pnpm remove ${packages}`, targetDir);
+    runCommand(`${removeCommands[packageManger]} ${packages}`, targetDir);
   }
 
   config.files?.forEach((file) => {

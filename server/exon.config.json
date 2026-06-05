@@ -1,0 +1,8 @@
+{
+  "language": "TypeScript",
+  "database": "Mongoose",
+  "packageManger": "npm",
+  "plugins": [
+    "mongoose"
+  ]
+}

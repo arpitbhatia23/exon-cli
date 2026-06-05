@@ -193,6 +193,6 @@ export const installdependencies = async (
     color.green(`🚀 exon-cli just saved you 30 minutes of setup!`) +
       "\n" +
       color.dim(`Star the repo to support the project: `) +
-      color.cyan(color.underline("https://github.com/arpitbhatia23/exon")),
+      color.cyan(color.underline("https://github.com/arpitbhatia23/exon-cli")),
   );
 };
