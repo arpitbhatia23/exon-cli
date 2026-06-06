@@ -73,8 +73,8 @@ importers:
         specifier: ^0.11.0
         version: 0.11.0
       '@exon-cli/core':
-        specifier: 1.0.8
-        version: 1.0.8
+        specifier: 1.0.9
+        version: 1.0.9
       '@types/commander':
         specifier: ^2.12.0
         version: 2.12.5
@@ -438,8 +438,8 @@ packages:
     resolution: {integrity: sha512-rZAP3aVgB9ds9KOeUSL+zZ21hPmo8dh6fnIFwRQj5EAZl9gzR7wxYbYXYysAM8CTqGmUGyp2S4kUdV17MnGuWQ==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
 
-  '@exon-cli/core@1.0.8':
-    resolution: {integrity: sha512-uNLDChSE1hURYuNkU4OTEW4QkSm7bMpnhcBiYlZHXAvdv+b6QJTZns4Zb8aOIBQj0jPkLMXoclELrw+4aM2xSw==}
+  '@exon-cli/core@1.0.9':
+    resolution: {integrity: sha512-ElDHhJfUL78F4kYgfJdWDrdEUvLeodSzMG7IbhYwIcVQJV/BJXaI4zWaWdMl4r9+mYAVMpSNzbvz78/w23N7nQ==}
 
   '@humanfs/core@0.19.2':
     resolution: {integrity: sha512-UhXNm+CFMWcbChXywFwkmhqjs3PRCmcSa/hfBgLIb7oQ5HNb1wS0icWsGtSAUNgefHeI+eBrA8I1fxmbHsGdvA==}
@@ -1769,7 +1769,7 @@ snapshots:
       '@eslint/core': 1.2.1
       levn: 0.4.1
 
-  '@exon-cli/core@1.0.8':
+  '@exon-cli/core@1.0.9':
     dependencies:
       '@clack/prompts': 0.11.0
       fs-extra: 11.3.5
