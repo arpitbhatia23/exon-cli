@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://exon-cli-docs.vercel.app/</loc></url>
+  <url><loc>https://exon-cli-docs.vercel.app/docs/introduction/</loc></url>
+  <url><loc>https://exon-cli-docs.vercel.app/docs/getting-started/</loc></url>
+  <url><loc>https://exon-cli-docs.vercel.app/docs/cli-commands/</loc></url>
+  <url><loc>https://exon-cli-docs.vercel.app/docs/plugin-architecture/</loc></url>
+  <url><loc>https://exon-cli-docs.vercel.app/docs/plugins-reference/</loc></url>
+  <url><loc>https://exon-cli-docs.vercel.app/docs/database-orms/</loc></url>
+  <url><loc>https://exon-cli-docs.vercel.app/docs/docker-deployment/</loc></url>
+  <url><loc>https://exon-cli-docs.vercel.app/docs/best-practices/</loc></url>
+</urlset>
